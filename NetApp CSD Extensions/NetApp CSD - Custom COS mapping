@@ -1,0 +1,63 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+cos = get_safe_meta_data_value('cos')
+
+if cos.casefold() == 'technicalreports' or cos.casefold() == 'technicalreport':
+    document.add_meta_data({'cos': 'Technical Report'})
+elif cos.casefold() == 'whitepapers' or cos.casefold() == 'whitepaper':
+	document.add_meta_data({'cos': 'White Paper'})
+elif cos.casefold() == 'customerstories' or cos.casefold() == 'customerstory':
+	document.add_meta_data({'cos': 'Customer Story'})
+elif cos.casefold() == 'infographics':
+	document.add_meta_data({'cos': 'Infographic'})
+elif cos.casefold() == 'contracts':
+	document.add_meta_data({'cos': 'Contract'})
+elif cos.casefold() == 'briefssolution':
+	document.add_meta_data({'cos': 'Solution Brief'})
+elif cos.casefold() == 'datasheets':
+	document.add_meta_data({'cos': 'Data Sheet'})
+elif cos.casefold() == 'netappverifiedarchitecture':
+	document.add_meta_data({'cos': 'NetApp Verified Architecture'})
+elif cos.casefold() == 'ebooks':
+	document.add_meta_data({'cos': 'EBook'})
+elif cos.casefold() == 'analystreportscommissioned':
+	document.add_meta_data({'cos': 'Analyst Reports Commissioned'})
+elif cos.casefold() == 'briefsservice':
+	document.add_meta_data({'cos': 'Service Brief'})
+elif cos.casefold() == 'investors':
+	document.add_meta_data({'cos': 'Investor'})
+elif cos.casefold() == 'companyinformationslides':
+	document.add_meta_data({'cos': 'Company Information Slide'})
+elif cos.casefold() == 'briefspartner':
+	document.add_meta_data({'cos': 'Partner Brief'})
+elif cos.casefold() == 'guidesuser':
+	document.add_meta_data({'cos': 'User Guide'})
+elif cos.casefold() == 'guidescorporate':
+	document.add_meta_data({'cos': 'Corporate Guide'})
+elif cos.casefold() == 'articles':
+	document.add_meta_data({'cos': 'Article'})
+elif cos.casefold() == 'brochures':
+	document.add_meta_data({'cos': 'Brochure'})
+elif cos.casefold() == 'faqs':
+	document.add_meta_data({'cos': 'FAQ'})
+elif cos.casefold() == 'isocertificates':
+	document.add_meta_data({'cos': 'ISO Certificate'})
+elif cos.casefold() == 'legal,contracts':
+	document.add_meta_data({'cos': 'Legal, Contract'})
+elif cos.casefold() == 'ataglance1pager':
+	document.add_meta_data({'cos': 'At a Glance 1 Pager'})
+elif cos.casefold() == 'briefssolution,datasheets':
+	document.add_meta_data({'cos': 'Solution Brief, Data Sheet'})
+elif cos.casefold() == 'listicles':
+	document.add_meta_data({'cos': 'Listicle'})
+elif cos.casefold() == 'guidesquickreference':
+	document.add_meta_data({'cos': 'Reference Guide'})
+elif cos.casefold() == 'guidespartnerenablement':
+	document.add_meta_data({'cos': 'Partner Enablement Guide'})
+elif cos.casefold() == 'ebooks,datasheets':
+	document.add_meta_data({'cos': 'EBook, Data Sheet'})
+log(cos)
