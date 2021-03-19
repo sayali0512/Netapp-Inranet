@@ -1,0 +1,101 @@
+# logging a data stream in the Log Browser
+
+from bs4 import BeautifulSoup
+
+def get_safe_meta_data_value(field):
+     try:
+         return document.get_meta_data_value(field)[-1]
+     except Exception as e:
+         return ''
+
+      
+sourcetype = get_safe_meta_data_value('sourcetype')
+source = get_safe_meta_data_value('source')
+bodyC = ""
+if sourcetype == "Lithium":
+  bodyC = get_safe_meta_data_value('message_body')
+elif "confluence.ngage" in source or "ict-jira.eng.netapp.com" in source or "jirangage.netapp.com" in source:
+  log(source)
+  document_data = document.get_data_stream('documentdata')
+  log(document_data)
+  try:
+      if document_data:
+          document.add_meta_data({"item_body": document_data.read().decode('utf-16-le')})
+      bodyC = get_safe_meta_data_value('item_body')
+  except Exception as e:
+      log("utf 16 error, utf 8 encoding ")
+      log(e)
+      document.add_meta_data({"item_body": document_data.read().decode('utf-8')})
+      bodyC = get_safe_meta_data_value('item_body')
+      pass
+else:
+  bodyC = document.get_data_stream('documentdata').read().decode()
+
+my_data_stream = BeautifulSoup(bodyC, 'html.parser')
+
+h1 = ""
+for heading in my_data_stream.find_all(["h1"]):
+  if h1 == "":
+    h1 = heading.text.strip()
+  else:
+    h1 = h1 + ";"+heading.text.strip()
+
+document.add_meta_data({'h1': h1})
+log(h1)
+
+h2 = ""
+for heading in my_data_stream.find_all(["h2"]):
+  if h2 == "":
+    h2 = heading.text.strip()
+  else:
+    h2 = h2 + ";"+heading.text.strip()
+
+document.add_meta_data({'h2': h2})
+
+log(h2)
+
+h3 = ""
+for heading in my_data_stream.find_all(["h3"]):
+  if h3 == "":
+    h3 = heading.text.strip()
+  else:
+    h3 = h3 + ";"+heading.text.strip()
+
+document.add_meta_data({'h3': h3})
+
+log(h3)
+
+
+h4 = ""
+for heading in my_data_stream.find_all(["h4"]):
+  if h4 == "":
+    h4 = heading.text.strip()
+  else:
+    h4 = h4 + ";"+heading.text.strip()
+
+document.add_meta_data({'h4': h4})
+
+log(h4)
+
+
+h5 = ""
+for heading in my_data_stream.find_all(["h5"]):
+  if h5 == "":
+    h5 = heading.text.strip()
+  else:
+    h5 = h5 + ";"+heading.text.strip()
+
+document.add_meta_data({'h5': h5})
+
+log(h5)
+
+h6 = ""
+for heading in my_data_stream.find_all(["h6"]):
+  if h6 == "":
+    h6 = heading.text.strip()
+  else:
+    h6 = h6 + ";"+heading.text.strip()
+
+document.add_meta_data({'h6': h6})
+
+log(h6)
