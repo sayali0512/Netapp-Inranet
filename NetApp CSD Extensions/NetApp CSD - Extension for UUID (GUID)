@@ -1,0 +1,35 @@
+import uuid
+
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+guid = get_safe_meta_data_value('guid')
+vu = get_safe_meta_data_value('vu')
+lr = get_safe_meta_data_value('lr')
+table = get_safe_meta_data_value('table')
+ddocname = get_safe_meta_data_value('ddocname')
+if table == 'clouddocs':
+    clouddocs_guid = ''
+    clouddocs_guid = vu + '' + lr
+    clouddocs_guid = uuid.uuid3(uuid.NAMESPACE_DNS, clouddocs_guid)
+    document.add_meta_data({"guid": clouddocs_guid})
+elif table == 'doccenter' or table == 'doccenter_en':
+    doccenter_guid = ''
+    doccenter_guid = vu + '' + lr + '' + ddocname
+    doccenter_guid = uuid.uuid3(uuid.NAMESPACE_DNS, doccenter_guid)
+    document.add_meta_data({"guid": doccenter_guid})
+elif table == 'security.netapp.com':
+    sec_guid = ''
+    sec_guid = vu + '' + lr + '' + ddocname
+    sec_guid = uuid.uuid3(uuid.NAMESPACE_DNS, sec_guid)
+    document.add_meta_data({"guid": sec_guid})
+elif "spotdocs" in table or "trident" in table or "spotio" in table or "Technical Reports" in table:
+    url_guid = ''
+    url_guid = vu
+    url_guid = uuid.uuid3(uuid.NAMESPACE_DNS, url_guid)
+    document.add_meta_data({"guid": url_guid})
+    document.add_meta_data({"bi": url_guid})
+    document.add_meta_data({"ddocname": url_guid})
