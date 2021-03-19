@@ -1,0 +1,27 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+title = get_safe_meta_data_value('title')
+log(title)
+clickableuri = get_safe_meta_data_value('clickableuri')
+language = get_safe_meta_data_value('language')
+de = get_safe_meta_data_value('de')
+nssprod = get_safe_meta_data_value('nssprod')
+keywords = get_safe_meta_data_value('keywords')
+
+if "| NetApp Cloud Docs" in title:
+  fut = title.replace('| NetApp Cloud Docs','')
+  log(fut)
+  document.add_meta_data({'fut': fut})
+  document.add_meta_data({'title': fut})
+  #document.add_meta_data({title: ''})
+
+fut = get_safe_meta_data_value('fut')
+occm = clickableuri.split("/")[4]
+kw = nssprod + "," + keywords + "," + occm
+document.add_meta_data({'kw': kw})
+ptcontent = fut+" "+de+" "+kw
+document.add_meta_data({'ptcontent': ptcontent})
