@@ -1,0 +1,54 @@
+from datetime import datetime, time
+from dateutil import tz, parser
+
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+utc = tz.gettz('UTC')
+
+index_time = datetime.now()
+crawldate = index_time.astimezone(utc)
+document.add_meta_data({'crawldate': crawldate})
+
+lu = get_safe_meta_data_value('lu')
+dc = get_safe_meta_data_value('dc')
+
+try:
+    if lu:
+        if not isinstance(lu, int) and not lu.isdigit():
+            default_date = datetime.combine(datetime.now(),time(0, tzinfo=tz.gettz("US/Pacific")))
+            dt = parser.parse(lu, default=default_date)
+            lu_utc = dt.astimezone(utc)
+            log("Converted Date for lu")
+            log(lu_utc)
+            document.add_meta_data({"lu": lu_utc})
+            document.add_meta_data({"date": lu_utc})
+    else:
+        document.add_meta_data({"lu": crawldate})
+        document.add_meta_data({"date": crawldate})
+except Exception as e:
+  log("Applying Date error for lu: ")
+  log(e)
+  document.add_meta_data({"lu": crawldate})
+  document.add_meta_data({"date": crawldate})
+  pass
+
+try:
+    if dc:
+        if not isinstance(dc, int) and not dc.isdigit():
+            default_date = datetime.combine(datetime.now(),time(0, tzinfo=tz.gettz("US/Pacific")))
+            dt_dc = parser.parse(dc, default=default_date)
+            dc_utc = dt_dc.astimezone(utc)
+            log("Converted Date for dc")
+            log(dc_utc)
+            document.add_meta_data({"dc": dc_utc})
+    else:
+        document.add_meta_data({"dc": crawldate})
+except Exception as e:
+  log("Applying Date error for dc: ")
+  log(e)
+  document.add_meta_data({"dc": crawldate})
+  pass
