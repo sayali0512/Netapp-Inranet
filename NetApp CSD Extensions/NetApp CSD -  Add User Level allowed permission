@@ -1,0 +1,4 @@
+allowedUsers = "test_tse@netapp.com"
+userList = allowedUsers.split(",")
+for user in userList:
+  document.add_allowed(user, 'user', 'Email Security Provider', {})
