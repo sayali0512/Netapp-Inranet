@@ -1,0 +1,18 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+limessageissolution = get_safe_meta_data_value('limessageissolution')
+table = get_safe_meta_data_value('table')
+
+if table == "lithiumInternal" or table == "lithium":
+  if limessageissolution == "False":
+    document.add_meta_data({'status': 'NOT SOLVED'})
+    document.add_meta_data({'nastate': 'NOT SOLVED'})
+    document.add_meta_data({'state': 'NOT SOLVED'})
+  elif limessageissolution == "True":
+    document.add_meta_data({'status': 'SOLVED'})
+    document.add_meta_data({'nastate': 'SOLVED'})
+    document.add_meta_data({'state': 'SOLVED'})
