@@ -1,0 +1,72 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+clickableuri = get_safe_meta_data_value('clickableuri')
+lr = get_safe_meta_data_value('lr')
+try:
+    tempddocname = clickableuri.split("/")[5]
+    document.add_meta_data({"ddocname": tempddocname})
+
+    tempdoccenter_s = clickableuri.split("/")[3]
+    document.add_meta_data({"doccenter_s": tempdoccenter_s})
+
+    tempurlguid = clickableuri.split("/")[6].split(".html")
+    urlguid = tempurlguid[0]
+    document.add_meta_data({"urlguid": urlguid})
+
+    startIndex = clickableuri.index("/topic/");
+    vumanhtm = '';
+    if startIndex != -1:
+        newStartIndex = clickableuri.index("/", startIndex + 7);
+        if newStartIndex != -1:
+            vumanhtm = clickableuri[0: newStartIndex] + "/home.html";
+        else:
+            vumanhtm = clickableuri;
+    document.add_meta_data({"vumanhtm": vumanhtm.strip()})
+except Exception as e:
+  log(e)
+  pass
+
+if "en_US" in lr:
+  document.add_meta_data({'table': 'doccenter_en'})
+else :
+  document.add_meta_data({'table': 'doccenter'})
+
+source = get_safe_meta_data_value('source')
+urlguid = get_safe_meta_data_value('urlguid')
+ddocname = get_safe_meta_data_value('ddocname')
+doccenter_s = get_safe_meta_data_value('doccenter_s')
+nssprod = get_safe_meta_data_value('nssprod')
+title = get_safe_meta_data_value('title')
+fut = get_safe_meta_data_value('fut')
+keywords = get_safe_meta_data_value('keywords')
+
+if not ('fut' in locals() and fut.strip() != ''):
+    document.add_meta_data({"fut": title})
+    fut = title
+    
+if "docs.netapp.com" in source:
+    document.add_meta_data({"title_guid_s": title + "-" + urlguid.strip()})
+    document.add_meta_data({"title_doccenter_guid_s": title + "-" + doccenter_s.strip() + "-" + urlguid.strip()})
+    document.add_meta_data({"title_plugin_guid_s": title + "-" + ddocname.strip() + "-" + urlguid.strip()})
+    document.add_meta_data({"title_plugin_s": title + "-" + ddocname.strip()})
+    kw = ddocname.strip() + ";" + doccenter_s.strip() + ";" + keywords + ";" + nssprod.strip()
+    document.add_meta_data({"kw":kw})
+    document.add_meta_data({"ptcontent":fut+" "+ title+ " "+ kw})
+    
+
+cot = get_safe_meta_data_value('cot')
+if not cot:
+    document.add_meta_data({"cot": "Product Documentation"})
+
+concepts = get_safe_meta_data_value('concepts')
+docError = ["DOMParser", "error occured", "xerces"]
+checkError =  all(item in concepts for item in docError)
+ 
+if checkError is True:
+    document.add_meta_data({"parsedocument": "true"})
+else:
+    document.add_meta_data({"parsedocument": "false"})
