@@ -1,0 +1,15 @@
+import hashlib
+
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+vu = get_safe_meta_data_value('vu')
+coi = ''
+temp_coi = ''
+temp_coi = vu.encode()
+hashObject = hashlib.md5(temp_coi)
+coi = hashObject.hexdigest()
+document.add_meta_data({'coi': coi})
