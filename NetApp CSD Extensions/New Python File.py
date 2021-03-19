@@ -1,0 +1,15 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+source = get_safe_meta_data_value('source')
+lr = get_safe_meta_data_value('lr')
+table = get_safe_meta_data_value('table')
+
+if source == "Stage_kb.netapp.com_csd" :
+    if language.casefold() == "en_us" :
+  	    document.add_meta_data({'table': 'mtkb_en'})
+    else :
+        document.add_meta_data({'table': 'mtkb'})
