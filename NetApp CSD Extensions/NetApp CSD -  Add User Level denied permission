@@ -1,0 +1,4 @@
+deniedUsers = "nperla@netapp.com,abc@netapp.com,bxy@netapp.cm,123@netapp.com"
+userList = deniedUsers.split(",")
+for user in userList:
+  document.add_denied(user, 'user', 'Email Security Provider', {})
