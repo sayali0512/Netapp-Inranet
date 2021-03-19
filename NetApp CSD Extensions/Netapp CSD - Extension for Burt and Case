@@ -1,0 +1,76 @@
+import re
+import datetime
+from dateutil.tz import  gettz
+
+def get_safe_meta_data_value(meta_data_name):
+    safe_meta = ''
+    meta_data_value = document.get_meta_data_value(meta_data_name)
+    if meta_data_value:
+        safe_meta = meta_data_value[-1]
+    return safe_meta
+
+sourcename = get_safe_meta_data_value('source')
+title = get_safe_meta_data_value('title')
+sht = ""
+
+if len(title) > 250:
+    document.add_meta_data({'sht': title[0:250]})
+else:
+    document.add_meta_data({'sht': title})
+
+crawldate = get_safe_meta_data_value('crawldate')
+pst = gettz('US/Pacific')
+
+index_time = datetime.datetime.now()
+crawldate = index_time.astimezone(pst)
+document.add_meta_data({'crawldate': crawldate})
+
+if 'burt' in sourcename:
+    description = ""
+    note = get_safe_meta_data_value('note')
+    pubnote = get_safe_meta_data_value('public_report_note')
+    
+    if note:
+        m = re.search('(?<=%%% DESCRIPTION:)(.*?)(?=%%%)', note, re.I + re.M + re.S)
+        if m:
+            description = description + m.group(0)
+        
+    if pubnote:
+        m = re.search('(?<=%%% DESCRIPTION:)(.*?)(?=%%%)', pubnote, re.I + re.M + re.S)
+        if m:
+            description = description + m.group(0)
+        
+    if description:
+        document.add_meta_data({'de': description})
+elif 'sap_case_notes' in sourcename:
+    cat = get_safe_meta_data_value('casetype')
+    standard = ['ZCAS','ZCOR','ZL3E']
+    secure = ['ZSCA','ZSCO','ZSL3']
+    osversion = get_safe_meta_data_value('osversion')
+    tagcat1 = get_safe_meta_data_value('tagcategory1desc')
+    tagcat2 = get_safe_meta_data_value('tagcategory2desc')
+    problemcause = get_safe_meta_data_value('problemcause')
+    symptomtype = get_safe_meta_data_value('symptomtype')
+    resolutiontype = get_safe_meta_data_value('resolutiontype')
+    if tagcat1.strip():
+        document.add_meta_data({'pn': tagcat1})
+    elif osversion.strip():
+        document.add_meta_data({'pn': osversion})
+    
+    if problemcause.strip():
+        document.add_meta_data({'task': problemcause})
+    elif symptomtype.strip():
+        document.add_meta_data({'task': symptomtype})
+    elif tagcat2.strip():
+        document.add_meta_data({'task': tagcat2})
+    elif resolutiontype.strip():
+        document.add_meta_data({'task': resolutiontype})
+    
+    if cat.strip() in standard:
+        document.add_meta_data({'table': 'sapdb'})
+        document.add_meta_data({'cos': 'Case Note'})
+        document.add_meta_data({'acl': 'netapppersonnel'})
+    elif cat.strip() in secure:
+        document.add_meta_data({'table': 'sapdbsecure'})
+        document.add_meta_data({'cos': 'Case Note - Secure'})
+        document.add_meta_data({'acl': 'netapppersonnel_secure'})
