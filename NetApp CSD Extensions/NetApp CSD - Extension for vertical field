@@ -1,0 +1,94 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+table = get_safe_meta_data_value('table')
+tags_category_s = get_safe_meta_data_value('tags_category_s')
+jiprojectname = get_safe_meta_data_value('jiprojectname')
+licategorytitle = get_safe_meta_data_value('licategorytitle')
+
+if table == 'mtkb' or table == 'mtkb_en':
+    if tags_category_s.casefold() == 'cloud':
+  	    document.add_meta_data({'vertical': 'Cloud'})
+    elif tags_category_s.casefold() == 'core':
+  	    document.add_meta_data({'vertical': 'CORE'})
+    elif tags_category_s.casefold() == 'dp':
+  	    document.add_meta_data({'vertical': 'Data Protection'})
+    elif tags_category_s.casefold() == 'esg':
+  	    document.add_meta_data({'vertical': 'E-Series'})
+    elif tags_category_s.casefold() == 'hw':
+  	    document.add_meta_data({'vertical': 'Hardware'})
+    elif tags_category_s.casefold() == 'metrocluster':
+  	    document.add_meta_data({'vertical': 'MetroCluster'})
+    elif tags_category_s.casefold() == 'nas':
+  	    document.add_meta_data({'vertical': 'NAS'})
+    elif tags_category_s.casefold() == 'om':
+  	    document.add_meta_data({'vertical': 'OnCommand'})
+    elif tags_category_s.casefold() == 'perf':
+  	    document.add_meta_data({'vertical': 'Perf'})
+    elif tags_category_s.casefold() == 'san':
+  	    document.add_meta_data({'vertical': 'SAN'})
+    elif tags_category_s.casefold() == 'snapx':
+  	    document.add_meta_data({'vertical': 'SnapX'})
+    elif tags_category_s.casefold() == 'solidfire':
+  	    document.add_meta_data({'vertical': 'SolidFire'})
+    elif tags_category_s.casefold() == 'sgrid':
+  	    document.add_meta_data({'vertical': 'StorageGRID'})
+    elif tags_category_s.casefold() == 'virt':
+  	    document.add_meta_data({'vertical': 'Virt'})
+    else:
+        document.add_meta_data({'vertical': 'other'})
+
+if table == 'jirangage':
+    if jiprojectname.casefold() == 'cds':
+        document.add_meta_data({'vertical': 'Cloud'})
+    else:
+        document.add_meta_data({'vertical': 'SolidFire'})
+
+if table == "lithiumInternal":
+    if licategorytitle.casefold() == 'cloud central kx':
+        document.add_meta_data({'vertical': 'Cloud'})
+    elif licategorytitle.casefold() == 'core kx':
+        document.add_meta_data({'vertical': 'CORE'})
+    elif licategorytitle.casefold() == 'dp kx':
+        document.add_meta_data({'vertical': 'Data Protection'})
+    elif licategorytitle.casefold() == 'e-series kx':
+        document.add_meta_data({'vertical': 'E-Series'})
+    elif licategorytitle.casefold() == 'hw kx':
+        document.add_meta_data({'vertical': 'Hardware'})
+    elif licategorytitle.casefold() == 'metrocluster kx':
+        document.add_meta_data({'vertical': 'MetroCluster'})
+    elif licategorytitle.casefold() == 'nas kx':
+        document.add_meta_data({'vertical': 'NAS'})
+    elif licategorytitle.casefold() == 'oncommand kx':
+        document.add_meta_data({'vertical': 'OnCommand'})
+    elif licategorytitle.casefold() == 'perf kx':
+        document.add_meta_data({'vertical': 'Perf'})
+    elif licategorytitle.casefold() == 'san kx':
+        document.add_meta_data({'vertical': 'SAN'})
+    elif licategorytitle.casefold() == 'snapx kx':
+        document.add_meta_data({'vertical': 'SnapX'})
+    elif licategorytitle.casefold() == 'solidfire kx':
+        document.add_meta_data({'vertical': 'SolidFire'})
+    elif licategorytitle.casefold() == 'sgrid kx':
+        document.add_meta_data({'vertical': 'StorageGRID'})
+    elif licategorytitle.casefold() == 'virt kx':
+        document.add_meta_data({'vertical': 'Virt'})
+    elif licategorytitle.casefold() == 'converged infra kx':
+        document.add_meta_data({'vertical': 'ConvergedInfra'})
+    elif licategorytitle.casefold() == 'encryption kx':
+        document.add_meta_data({'vertical': 'Encryption'})
+    elif licategorytitle.casefold() == 'migration kx':
+        document.add_meta_data({'vertical': 'Migration'})
+    elif licategorytitle.casefold() == 'network kx':
+        document.add_meta_data({'vertical': 'Network'})
+    elif licategorytitle.casefold() == "ontap select kx":
+        document.add_meta_data({'vertical': 'OntapSelect'})
+    elif licategorytitle.casefold() == "open source kx":
+        document.add_meta_data({'vertical': 'OpenSource'})
+    elif licategorytitle.casefold() == "security kx":
+        document.add_meta_data({'vertical': 'Security'})
+    else:
+        document.add_meta_data({'vertical': 'other'})
