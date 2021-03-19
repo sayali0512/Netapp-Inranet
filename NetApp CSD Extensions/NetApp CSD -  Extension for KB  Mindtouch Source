@@ -1,0 +1,36 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+lr = get_safe_meta_data_value('lr')
+
+ptcontent = get_safe_meta_data_value('ptcontent')
+tags_category_s = get_safe_meta_data_value('tags_category_s')
+tags_category_s=tags_category_s.replace("-"," ")
+ptcontent = ptcontent + " " + tags_category_s
+document.add_meta_data({'ptcontent': ptcontent})
+
+custom_guid = get_safe_meta_data_value('custom_guid')
+custom_guid_wo_hyphen = custom_guid.replace("-"," ")
+document.add_meta_data({'custom_guid_wo_hyphen': custom_guid_wo_hyphen})
+
+if "en_us" in lr.casefold():
+  document.add_meta_data({'table': 'mtkb_en'})
+else:
+  document.add_meta_data({'table': 'mtkb'})
+
+title = get_safe_meta_data_value('title')
+if len(title) > 250:
+  document.add_meta_data({'sht': title[0:250]})
+else:
+  document.add_meta_data({'sht': title})
+
+title_parent = get_safe_meta_data_value('title_parent')
+if title_parent:
+  document.add_meta_data({'title_string': title_parent})
+  document.add_meta_data({'title_guid_s': title_parent})
+  document.add_meta_data({'title_doccenter_guid_s': title_parent})
+  document.add_meta_data({'title_plugin_guid_s': title_parent})
+  document.add_meta_data({'title_plugin_s': title_parent})
