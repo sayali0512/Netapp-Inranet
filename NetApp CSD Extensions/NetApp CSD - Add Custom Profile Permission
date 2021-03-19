@@ -1,0 +1,16 @@
+def get_safe_meta_data_value(field):
+  try:
+    return document.get_meta_data_value(field)[-1]
+  except Exception as e:
+    return ''
+
+document.clear_permissions()
+cat = get_safe_meta_data_value('casetype')
+standard = ['ZCAS','ZCOR','ZL3E']
+secure = ['ZSCA','ZSCO','ZSL3']
+log("cat :"+cat)
+if cat in standard:
+  document.add_allowed('netapppersonnel_secure' , 'group', 'NetAppCSDSecurityIdentityProvider')
+  document.add_allowed('netapppersonnel' , 'group', 'NetAppCSDSecurityIdentityProvider')
+elif cat in secure:
+  document.add_allowed('netapppersonnel_secure' , 'group', 'NetAppCSDSecurityIdentityProvider')
