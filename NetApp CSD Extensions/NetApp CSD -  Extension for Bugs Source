@@ -1,0 +1,16 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+title = get_safe_meta_data_value('title')
+if len(title) > 250:
+  document.add_meta_data({'sht': title[0:250]})
+else:
+  document.add_meta_data({'sht': title})
+
+language = get_safe_meta_data_value('language')
+
+if not language:
+    document.add_meta_data({"language": "en_US"})
