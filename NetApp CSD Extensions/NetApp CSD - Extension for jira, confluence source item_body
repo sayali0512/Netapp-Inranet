@@ -1,0 +1,5 @@
+import json
+document_data = document.get_data_stream('documentdata')
+log(document_data)
+if document_data:
+    document.add_meta_data({"item_body": document_data.read().decode('utf-16le')})
