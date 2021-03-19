@@ -1,0 +1,37 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+clickableuri = get_safe_meta_data_value('clickableuri')
+source = get_safe_meta_data_value('source')
+language = get_safe_meta_data_value('language')
+vu = get_safe_meta_data_value('vu')
+pp = get_safe_meta_data_value('pp')
+table = get_safe_meta_data_value('table')
+lu = get_safe_meta_data_value('lu')
+pv = get_safe_meta_data_value('pv')
+ptnt = get_safe_meta_data_value('ptnt')
+ptvrt = get_safe_meta_data_value('ptvrt')
+op = get_safe_meta_data_value('op')
+opo = get_safe_meta_data_value('opo')
+availablefor_s = get_safe_meta_data_value('availablefor_s')
+publiclyavailable_s = get_safe_meta_data_value('publiclyavailable_s')
+
+if source == "prod_docs.netapp.com_csd" :
+    if clickableuri == "https://docs.netapp.com/ess-11/topic/com.netapp.doc.ssm-sys-web/GUID-AA4D54A4-0114-4246-922B-5D35C1147CC9.html?lang=en" :
+        document.add_meta_data({'pp': 'ONTAP 9'})
+        document.add_meta_data({'pv': '9'})
+        document.add_meta_data({'ptnt': '7-Mode Transition Tool; Ontap 9; OnCommand Unified Manager; Data ONTAP 8. SnapManager for Oracle'})
+        document.add_meta_data({'ptvrt': '9; 9.3p4; 9.4p2; 9.2p4; 9.4p1; 9.2p1; 9.2; 9.2 rc1; 9.1p12; 9.1p13; 9.1p14; 9.1; 9.1 rc2; 9.1 rc1; 9.0; 9.0 rc1; 9.0 rc2; 9.4; 9.4rc1; 9.3; 9.3 rc1; 9.3p8; 9.3p7; 9.4.1p2; 9.3p6; 9.3p5'})
+        document.add_meta_data({'op': 'ONTAP 9; ONTAP 9 / 9.3P4; ONTAP 9 / 9.4P2; ONTAP 9 / 9.2P4; ONTAP 9 / 9.4P1; ONTAP 9 / 9.2P1; ONTAP 9 / 9.2; ONTAP 9 / 9.2 RC1; ONTAP 9 / 9.1P12; ONTAP 9 / 9.1P13; ONTAP 9 / 9.1P14; ONTAP 9 / 9.1; ONTAP 9 / 9.1 RC2; ONTAP 9 / 9.1 RC1; ONTAP 9 / 9.0; ONTAP 9 / 9.0 RC1; ONTAP 9 / 9.0 RC2; ONTAP 9 / 9.4; ONTAP 9 / 9.4RC1; ONTAP 9 / 9.3; ONTAP 9 / 9.3 RC1; ONTAP 9 / 9.3P8; ONTAP 9 / 9.3P7; ONTAP 9 / 9.4.1P2; ONTAP 9 / 9.3P6; ONTAP 9 / 9.3P5'})
+        document.add_meta_data({'opo': 'ONTAP 9'})
+
+    if clickableuri == "https://docs.netapp.com/ess-11/topic/com.netapp.doc.ssm-sam-116/GUID-7959F61B-3642-425C-A900-5B9BB30CED4E.html?lang=en" :
+        document.add_meta_data({'pp': 'ONTAP 9'})
+        document.add_meta_data({'pv': '9'})
+        document.add_meta_data({'ptnt': '7-Mode Transition Tool; Ontap 9; OnCommand Unified Manager; Data ONTAP 8. SnapManager for Oracle'})
+        document.add_meta_data({'ptvrt': '9; 9.3p4; 9.4p2; 9.2p4; 9.4p1; 9.2p1; 9.2; 9.2 rc1; 9.1p12; 9.1p13; 9.1p14; 9.1; 9.1 rc2; 9.1 rc1; 9.0; 9.0 rc1; 9.0 rc2; 9.4; 9.4rc1; 9.3; 9.3 rc1; 9.3p8; 9.3p7; 9.4.1p2; 9.3p6; 9.3p5'})
+        document.add_meta_data({'op': 'ONTAP 9; ONTAP 9 / 9.3P4; ONTAP 9 / 9.4P2; ONTAP 9 / 9.2P4; ONTAP 9 / 9.4P1; ONTAP 9 / 9.2P1; ONTAP 9 / 9.2; ONTAP 9 / 9.2 RC1; ONTAP 9 / 9.1P12; ONTAP 9 / 9.1P13; ONTAP 9 / 9.1P14; ONTAP 9 / 9.1; ONTAP 9 / 9.1 RC2; ONTAP 9 / 9.1 RC1; ONTAP 9 / 9.0; ONTAP 9 / 9.0 RC1; ONTAP 9 / 9.0 RC2; ONTAP 9 / 9.4; ONTAP 9 / 9.4RC1; ONTAP 9 / 9.3; ONTAP 9 / 9.3 RC1; ONTAP 9 / 9.3P8; ONTAP 9 / 9.3P7; ONTAP 9 / 9.4.1P2; ONTAP 9 / 9.3P6; ONTAP 9 / 9.3P5'})
+        document.add_meta_data({'opo': 'ONTAP 9'})
