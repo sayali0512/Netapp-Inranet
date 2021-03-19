@@ -1,0 +1,21 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+title = get_safe_meta_data_value('title')
+fut = get_safe_meta_data_value('fut')
+sht = get_safe_meta_data_value('sht')
+syssource = get_safe_meta_data_value('syssource')
+
+if fut.strip() != '':
+  if len(fut) > 250:
+    document.add_meta_data({'sht': fut[0:250]})
+  else:
+    document.add_meta_data({'sht': fut})
+else:
+  if len(title) > 250:
+    document.add_meta_data({'sht': title[0:250]})
+  else:
+    document.add_meta_data({'sht': title})
