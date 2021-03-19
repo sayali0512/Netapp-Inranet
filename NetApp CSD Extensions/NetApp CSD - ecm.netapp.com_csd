@@ -1,0 +1,40 @@
+import uuid
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+lr = get_safe_meta_data_value('lr')
+clickableuri = get_safe_meta_data_value('clickableuri')
+ddocname = get_safe_meta_data_value('ddocname')
+title_key = "ecmdocs"
+
+if "en_US" in lr:
+  document.add_meta_data({'table': 'OracleECM_en'})
+else :
+  document.add_meta_data({'table': 'OracleECM'})
+
+table = get_safe_meta_data_value('table')
+vu = get_safe_meta_data_value('vu')
+if "OracleECM_en" in table or "OracleECM" in table:
+    log("going inside...")
+    ecm_guid = ''
+    ecm_guid = vu + '' + lr + '' + ddocname
+    log("guidtitle - " + ecm_guid)
+    ecm_guid = uuid.uuid3(uuid.NAMESPACE_DNS, ecm_guid)
+    log(ecm_guid)
+    document.add_meta_data({"guid": ecm_guid})
+    
+title = get_safe_meta_data_value('title')
+guid = get_safe_meta_data_value('guid')
+if title_key in clickableuri:
+    document.add_meta_data({"title_guid_s": title + "-" + guid.strip()})
+    document.add_meta_data({"title_doccenter_guid_s": title + "-" + ddocname.strip() + "-" + guid.strip()})
+    document.add_meta_data({"title_plugin_guid_s": title + "-" + ddocname.strip() + "-" + guid.strip()})
+else:
+    document.add_meta_data({"title_guid_s": title + "-" + ddocname.strip()})
+    document.add_meta_data({"title_doccenter_guid_s": title + "-" + ddocname.strip()})
+    document.add_meta_data({"title_plugin_guid_s": title + "-" + ddocname.strip()})
+document.add_meta_data({"title_plugin_s": title + "-" + ddocname.strip()})
+document.add_meta_data({"title_string": title })
