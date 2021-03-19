@@ -1,0 +1,45 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+clickableuri = get_safe_meta_data_value('clickableuri')
+source = get_safe_meta_data_value('source')
+if "docs.netapp.com" in source:
+	temp_lr = ''
+	temp_lr = clickableuri[-2:]
+	document.add_meta_data({"language": temp_lr})
+if "clouddocs.netapp.com" in source:
+    temp_lr = ''
+    temp_lr = clickableuri.split("/")[3]
+    document.add_meta_data({"language": temp_lr})
+
+lr = get_safe_meta_data_value('lr')
+language = get_safe_meta_data_value('language')
+
+if not language:
+    document.add_meta_data({"language": "English"})
+
+#lr values need to be matched to detect the language
+lang_en = ["en", "english", "en-us", "us-en", "en_us", "lang_en"]
+lang_fr = ["fr", "fr-fr", "fr_fr", "french", "lang_fr"]
+lang_de = ["de", "de-de", "de_de", "german", "deutsch", "lang_de"]
+lang_ja = ["ja", "jp", "ja_jp", "ja-jp", "japanese", "lang_jp"]
+lang_cn = ["cn", "zh-cn", "zh_cn", "chinese", "lang_cn"]
+lang_es = ["es", "es-es", "es_es", "spanish", "lang_es"]
+
+if language.casefold() in lang_en:
+  document.add_meta_data({"lr": "en_US"})
+elif language.casefold() in lang_fr:
+  document.add_meta_data({"lr": "fr_FR"})
+elif language.casefold() in lang_de:
+  document.add_meta_data({"lr": "de_DE"})
+elif language.casefold() in lang_ja:
+  document.add_meta_data({"lr": "ja_JP"})
+elif language.casefold() in lang_cn:
+  document.add_meta_data({"lr": "zh_CN"})
+elif language.casefold() in lang_es:
+  document.add_meta_data({"lr": "es_ES"})
+else:
+  document.add_meta_data({"lr": "en_US"})
