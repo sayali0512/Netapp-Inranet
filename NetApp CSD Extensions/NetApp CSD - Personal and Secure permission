@@ -1,0 +1,9 @@
+def get_safe_meta_data_value(field):
+  try:
+    return document.get_meta_data_value(field)[-1]
+  except Exception as e:
+    return ''
+
+document.clear_permissions()
+document.add_allowed('netapppersonnel_secure' , 'group', 'NetAppCSDSecurityIdentityProvider')
+document.add_allowed('netapppersonnel' , 'group', 'NetAppCSDSecurityIdentityProvider')
