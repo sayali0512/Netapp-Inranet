@@ -1,0 +1,34 @@
+from bs4 import BeautifulSoup
+import re
+
+log("kanthan1")
+my_data_stream = document.get_data_stream('body_text').read()
+log("kanthan2")
+my_data_stream = document.get_data_stream('body_html').read()
+log("kanthan3")
+html_string = str(my_data_stream)
+log("kanthan4")
+
+soup = BeautifulSoup(html_string, 'html.parser')
+#tag = soup.article
+#print(tag)
+
+log("kanthan5")
+basep = str(soup.base)
+if ((str(soup.base)).casefold() != 'none'):
+    basep=""
+newhtml = basep +" <html>"
+log("kanthan55")
+if ((str(soup.head)).casefold() != 'none'):
+    newhtml = newhtml + str(soup.head)
+log("kanthan6")
+newhtml = newhtml + "<body>"
+for tag in soup.find_all(re.compile("^article")):
+    newhtml = newhtml + " " + str(tag)
+
+newhtml = newhtml + "</body></html>"
+log("kanthan7")
+text = document.DataStream('body_html')
+text.write(newhtml)
+document.add_data_stream(text)
+log("kanthan8")
