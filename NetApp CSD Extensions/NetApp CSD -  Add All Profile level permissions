@@ -1,0 +1,10 @@
+def get_safe_meta_data_value(field):
+  try:
+    return document.get_meta_data_value(field)[-1]
+  except Exception as e:
+    return ''
+
+allProfiles = ['netapppersonnel_secure','netapppersonnel','partner','customer','public']
+document.clear_permissions()
+for profile in allProfiles:
+  document.add_allowed(profile, 'group', 'NetAppCSDSecurityIdentityProvider')
