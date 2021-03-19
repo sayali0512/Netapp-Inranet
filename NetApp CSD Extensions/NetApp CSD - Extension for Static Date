@@ -1,0 +1,13 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+lu = get_safe_meta_data_value('lu')
+if not lu:
+    document.add_meta_data({"lu": "static_lu_date"})
+
+dc = get_safe_meta_data_value('dc')
+if not dc:
+    document.add_meta_data({"dc": "static_dc_date"})
