@@ -1,0 +1,69 @@
+def get_safe_meta_data_value(field):
+    try:
+        return document.get_meta_data_value(field)[-1]
+    except Exception as e:
+        return ''
+
+table = get_safe_meta_data_value('table')
+sev = get_safe_meta_data_value('sev')
+jifieldspriorityname = get_safe_meta_data_value('jifieldspriorityname')
+
+if table == 'engg_burt':
+    if sev.casefold() == '1':
+  	    document.add_meta_data({'naseverity_unified': 'Data Corruption'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Critical'})
+    elif sev.casefold() == '2':
+  	    document.add_meta_data({'naseverity_unified': 'System barely usable'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Major'})
+    elif sev.casefold() == '3':
+  	    document.add_meta_data({'naseverity_unified': 'Serious inconvenience'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Minor'})
+    elif sev.casefold() == '4':
+  	    document.add_meta_data({'naseverity_unified': 'Trivial'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Data Corruption'})
+    elif sev.casefold() == '5':
+  	    document.add_meta_data({'naseverity_unified': 'Suggestion'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Enhancement'})
+    else:
+  	    document.add_meta_data({'naseverity_unified': 'Serious inconvenience'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Minor'})
+
+if table == 'jirangage' or table == 'jiraict':
+    if jifieldspriorityname.casefold() in ['p0', 'p1', 'blocker', 'emergency', 'highest']:
+  	    document.add_meta_data({'naseverity_unified': 'Data Corruption'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Critical'})
+    elif jifieldspriorityname.casefold() in ['p2', 'critical', 'major', 'high']:
+  	    document.add_meta_data({'naseverity_unified': 'System barely usable'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Major'})
+    elif jifieldspriorityname.casefold() in ['p3', 'minor', 'medium']:
+  	    document.add_meta_data({'naseverity_unified': 'Serious inconvenience'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Minor'})
+    elif jifieldspriorityname.casefold() in ['p4', 'trivial', 'low']:
+  	    document.add_meta_data({'naseverity_unified': 'Trivial'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Data Corruption'})
+    elif jifieldspriorityname.casefold() in ['p5', 'lowest']:
+  	    document.add_meta_data({'naseverity_unified': 'Suggestion'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Enhancement'})
+    else:
+  	    document.add_meta_data({'naseverity_unified': 'Unknown'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Unknown'})
+
+if table == "bugtracking":
+    if sev.casefold() in ['block', 'crash', 'urgent']:
+  	    document.add_meta_data({'naseverity_unified': 'Data Corruption'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Critical'})
+    elif sev.casefold() in ['major', 'high']:
+  	    document.add_meta_data({'naseverity_unified': 'System barely usable'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Major'})
+    elif sev.casefold() in ['normal', 'minor', 'default']:
+  	    document.add_meta_data({'naseverity_unified': 'Serious inconvenience'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Minor'})
+    elif sev.casefold() in ['tweek', 'trivial', 'low']:
+  	    document.add_meta_data({'naseverity_unified': 'Trivial'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Data Corruption'})
+    elif sev.casefold() in ['feature', 'lowest']:
+  	    document.add_meta_data({'naseverity_unified': 'Suggestion'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'Enhancement'})
+    else:
+  	    document.add_meta_data({'naseverity_unified': 'default'})
+  	    document.add_meta_data({'nssseverity_s_unified': 'default'})
