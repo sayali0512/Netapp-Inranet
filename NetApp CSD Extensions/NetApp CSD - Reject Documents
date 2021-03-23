@@ -1,0 +1,34 @@
+def get_safe_meta_data(meta_data_name):
+    safe_meta = ''
+    meta_data_value = document.get_meta_data_value(meta_data_name)
+    if meta_data_value:
+        safe_meta = meta_data_value[-1]
+    return safe_meta
+ 
+filetype = get_safe_meta_data('filetype')
+log("filetype " + filetype)
+file_extension = get_safe_meta_data('file_extension')
+log("file_extension " + file_extension)
+rejecttype = ["vsdx", ".vsdx", "pct", ".png", ".mp4", ".tgz", ".vsd", ".jpg", ".zip", "7z", "mime", "ods", "vsd", ".pcap", "sketch", "dar", "epub", "image", "mpg", "jpg", "jpeg", "ico", "tif", "png", "bmp", "gif", "wmf", "avi", "wmv", "wma", "ram", "asx", "asf", "mp3", "mp4", "wav", "ogg", "vmarc", "tar", "iso", "img", "rpm", "cab", "rar", "ace", "exe", "java", "jar", "prz", "wrl", "midr", "ps", "ttf", "mso", "class", "dll", "so", "bin", "biz", "cgi", "com", "dcr", "fb", "flv", "fm", "ics", "mov", "svg", "css", "swf", "js", "min", "zip", "tar", "gz", "ova", "db", "list", "pcx", "tiff", "a", "o", "obj", "pyc", "pdb", "jnilib", "pfb", "pfm", "afm", "hqx", "sea", "dmg", "eps", "ai", "psd", "mid", "mpeg", "3gp", "m4a", "m4v", "dat", "dta", "log", "lst", "arc", "bz2", "war", "ear", "arj", "deb", "upp", "tgz", "sdd", "lzh", "msi", "hdr", "gpg", "gg", "kml", "kmz", "skb", "skp", "gbk", "fac", "ghg", "mdic", "chm", "mht"]
+
+if file_extension.lower() in rejecttype:
+    log('REJECT: file_extension '+ file_extension)
+    document.reject()
+elif filetype.lower() in rejecttype:
+    log('REJECT: filetype '+ filetype)
+    document.reject()
+
+#rejecting the documents having robots:noindex from docs.netapp.com
+robots = get_safe_meta_data('robots')
+log("robots " + robots)
+if "noindex" in robots:
+    log('Reject: robots '+ robots)
+    document.reject()
+
+#rejecting the documents having home.html or index.jsp from docs.netapp.com
+source = get_safe_meta_data('source')
+if "docs.netapp.com" in source:
+    vu = get_safe_meta_data('vu')
+    if "home.html" in vu:
+        log('Reject: home.html or index.jsp '+ vu)
+        document.reject()
